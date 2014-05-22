@@ -120,7 +120,7 @@ function ding_redia_bapp_views_default_views() {
   /* Display: Redia Feed News */
   $handler = $view->new_display('feed', 'Redia Feed News', 'redia_bapps_feed_news');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Nyheder fra' . variable_get('site_name', '');
+  $handler->display->display_options['title'] = 'Nyheder fra ' . variable_get('site_name', '');
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'rss';
   $handler->display->display_options['row_plugin'] = 'rss_fields';
@@ -377,10 +377,10 @@ function ding_redia_bapp_views_default_views() {
     t('[field_ding_news_lead]<br/>
 [field_ding_news_body]'),
     t('Redia Feed News'),
-    t('Nyheder fra'). variable_get('site_name', ''),
+    t('Nyheder fra '). variable_get('site_name', ''),
     t('List image'),
     t('Redia Feed Events'),
-    t('Kommende arrangementer i') . variable_get('site_name', ''),
+    t('Kommende arrangementer i ') . variable_get('site_name', ''),
     t('Group node from OG membership'),
     t('event brødtekst '),
     t('[field_ding_event_lead]<br/>
