@@ -20,17 +20,36 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
   $rowid = $vars['id'];
   $nodetype = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->type;
   $created = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->created;
-
   // Set event_loc
   $event_loc = '';
-  if (!empty($vars['view']->result[$rowid-1]->field_field_ding_event_location[0]['raw']['thoroughfare'])) {
+  
+  if(isset($vars['view']->result[$rowid-1]->_field_data['nid']['entity']->field_ding_event_library['und'])){
+  $gid = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->field_ding_event_library['und'][0]['gid'];
+  $library_id = db_query('SELECT etid FROM {og} WHERE gid = :gid', array(':gid' => $gid))->fetchField();
+  
+    if (!empty($library_id)) {
+    $libloc_result = db_query('SELECT   n.title,
+                  a.field_ding_library_addresse_thoroughfare AS street,
+                  a.field_ding_library_addresse_premise AS additional,
+                                a.field_ding_library_addresse_postal_code AS postal_code,
+                                a.field_ding_library_addresse_locality AS city,
+                                UPPER(a.field_ding_library_addresse_country) AS country
+                        FROM node n JOIN field_data_field_ding_library_addresse a
+                        ON n.nid = a.entity_id
+                        WHERE n.nid = :nid', array(':nid' => $library_id));
+
+    foreach ($libloc_result as $libloc) {
+      $loc = $libloc;
+      $event_loc = $libloc->street . ', ' . $libloc->postal_code . ', ' . $libloc->city;
+    }
+  }
+ }
+ 
+ elseif (!empty($vars['view']->result[$rowid-1]->field_field_ding_event_location[0]['raw']['thoroughfare'])) {
     $loc = $vars['view']->result[$rowid-1]->field_field_ding_event_location[0]['raw'];
     $event_loc = $loc['thoroughfare'] . ', ' . $loc['postal_code'] . ' ' . $loc['locality'];
   }
-  elseif (!empty($vars['view']->result[$rowid-1]->field_field_ding_library_addresse[0]['raw']['thoroughfare'])) {
-    $loc = $vars['view']->result[$rowid-1]->field_field_ding_library_addresse[0]['raw'];
-    $event_loc = $loc['thoroughfare'] . ', ' . $loc['postal_code'] . ' ' . $loc['locality'];
-  }
+  
   $vars['event_loc'] = $event_loc;
 
   // Set event_start + event_end
@@ -123,16 +142,5 @@ function ding_redia_bapp_theme($existing, $path) {
         'ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed',
       ),
     ),
-     'views_view_field_field__ding_news_materials' => array(
-      'arguments' => array('view' => NULL, 'options' => NULL, 'row' => NULL),
-      'template' => 'views-view-field--field-ding-news-materials',
-      'original hook' => 'views_view_field',
-      'path' => $path,
-      'preprocess functions' => array(
-        'template_preprocess',
-        'template_preprocess_views_view_field',
-        'ding_redia_bapp_preprocess_views_view_field_field__ding_news_materials',
-      ),
-    ), 
   );
 }
