@@ -123,5 +123,16 @@ function ding_redia_bapp_theme($existing, $path) {
         'ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed',
       ),
     ),
+     'views_view_field_field__ding_news_materials' => array(
+      'arguments' => array('view' => NULL, 'options' => NULL, 'row' => NULL),
+      'template' => 'views-view-field--field-ding-news-materials',
+      'original hook' => 'views_view_field',
+      'path' => $path,
+      'preprocess functions' => array(
+        'template_preprocess',
+        'template_preprocess_views_view_field',
+        'ding_redia_bapp_preprocess_views_view_field_field__ding_news_materials',
+      ),
+    ), 
   );
 }
