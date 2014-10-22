@@ -190,7 +190,7 @@ function ding_redia_bapp_views_default_views() {
   $handler->display->display_options['fields']['field_ding_news_list_image']['field'] = 'field_ding_news_list_image';
   $handler->display->display_options['fields']['field_ding_news_list_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_ding_news_list_image']['settings'] = array(
-    'image_style' => 'thumbnail',
+    'image_style' => 'oc_news_main_image',
     'image_link' => '',
   );
   $handler->display->display_options['path'] = 'redia/feed/nyheder';
@@ -316,7 +316,7 @@ function ding_redia_bapp_views_default_views() {
   $handler->display->display_options['fields']['field_ding_event_list_image']['field'] = 'field_ding_event_list_image';
   $handler->display->display_options['fields']['field_ding_event_list_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_ding_event_list_image']['settings'] = array(
-    'image_style' => 'thumbnail',
+    'image_style' => 'oc_event_main_image',
     'image_link' => '',
   );
   $handler->display->display_options['defaults']['sorts'] = FALSE;
