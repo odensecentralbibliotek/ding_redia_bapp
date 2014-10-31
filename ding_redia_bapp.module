@@ -40,7 +40,7 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
 
     foreach ($libloc_result as $libloc) {
       $loc = $libloc;
-      $event_loc = $libloc->street . ', ' . $libloc->postal_code . ', ' . $libloc->city;
+      $event_loc = $libloc->title . '\r\n ' . $libloc->street . ', ' . $libloc->postal_code . ', ' . $libloc->city;
     }
   }
  }
