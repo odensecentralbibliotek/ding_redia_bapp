@@ -21,7 +21,7 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
   $nodetype = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->type;
   $created = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->created;
   $p2k = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->field_place2book_tickets[LANGUAGE_NONE][0]['value'];
-  if (isset($p2k) && $p2k != 'placeholder'){
+  if (!empty($p2k)){
   $eventnode = node_load($vars['view']->result[$rowid-1]->_field_data['nid']['entity']->nid);
   $place2book = render_place2book_ticketsinfo($eventnode);
   $vars['place2book'] = $place2book;
