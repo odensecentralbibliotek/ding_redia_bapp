@@ -17,7 +17,11 @@
   <item>
     <title><?php print $title; ?></title>
     <link><?php print $link; ?></link>
-    <description><?php print $description; ?></description>
+    <description><?php print $description; 
+    if (isset($place2book)) {
+    print '&lt;br /&gt;' . $place2book;
+    }
+    ?></description>
     <?php print $item_elements; ?>
     <?php
     if (isset($display_start)) {
