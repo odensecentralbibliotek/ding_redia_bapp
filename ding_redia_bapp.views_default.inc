@@ -122,6 +122,8 @@ $handler = $view->new_display('feed', 'Redia Feed News', 'redia_bapps_feed_news'
 $handler->display->display_options['defaults']['title'] = FALSE;
 $handler->display->display_options['title'] = 'Nyheder fra ' . variable_get('site_name', '');
 $handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['pager']['options']['items_per_page'] = '10';
+$handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['style_plugin'] = 'rss';
 $handler->display->display_options['row_plugin'] = 'rss_fields';
 $handler->display->display_options['row_options']['title_field'] = 'title';
@@ -175,6 +177,20 @@ $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
 $handler->display->display_options['fields']['field_ding_news_lead']['id'] = 'field_ding_news_lead';
 $handler->display->display_options['fields']['field_ding_news_lead']['table'] = 'field_data_field_ding_news_lead';
 $handler->display->display_options['fields']['field_ding_news_lead']['field'] = 'field_ding_news_lead';
+$handler->display->display_options['fields']['field_ding_news_lead']['hide_alter_empty'] = FALSE;
+/* Felt: Indhold: Materials */
+$handler->display->display_options['fields']['field_ding_news_materials']['id'] = 'field_ding_news_materials';
+$handler->display->display_options['fields']['field_ding_news_materials']['table'] = 'field_data_field_ding_news_materials';
+$handler->display->display_options['fields']['field_ding_news_materials']['field'] = 'field_ding_news_materials';
+$handler->display->display_options['fields']['field_ding_news_materials']['label'] = '';
+$handler->display->display_options['fields']['field_ding_news_materials']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_ding_news_materials']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_ding_news_materials']['hide_alter_empty'] = FALSE;
+$handler->display->display_options['fields']['field_ding_news_materials']['settings'] = array(
+  'view_mode' => 'teaser',
+);
+$handler->display->display_options['fields']['field_ding_news_materials']['delta_offset'] = '0';
+$handler->display->display_options['fields']['field_ding_news_materials']['multi_type'] = 'ol';
 /* Felt: Tekst (Lead + Body) */
 $handler->display->display_options['fields']['field_ding_news_body']['id'] = 'field_ding_news_body';
 $handler->display->display_options['fields']['field_ding_news_body']['table'] = 'field_data_field_ding_news_body';
@@ -183,7 +199,9 @@ $handler->display->display_options['fields']['field_ding_news_body']['ui_name'] 
 $handler->display->display_options['fields']['field_ding_news_body']['label'] = 'Brødtekst';
 $handler->display->display_options['fields']['field_ding_news_body']['alter']['alter_text'] = TRUE;
 $handler->display->display_options['fields']['field_ding_news_body']['alter']['text'] = '[field_ding_news_lead]<br/>
-  [field_ding_news_body]';
+[field_ding_news_body]<br/>
+[field_ding_news_materials]';
+$handler->display->display_options['fields']['field_ding_news_body']['hide_alter_empty'] = FALSE;
 /* Felt: Indhold: List image */
 $handler->display->display_options['fields']['field_ding_news_list_image']['id'] = 'field_ding_news_list_image';
 $handler->display->display_options['fields']['field_ding_news_list_image']['table'] = 'field_data_field_ding_news_list_image';
@@ -193,17 +211,6 @@ $handler->display->display_options['fields']['field_ding_news_list_image']['sett
   'image_style' => 'oc_news_main_image',
   'image_link' => '',
 );
-/* Felt: Indhold: Materials */
-$handler->display->display_options['fields']['field_ding_news_materials']['id'] = 'field_ding_news_materials';
-$handler->display->display_options['fields']['field_ding_news_materials']['table'] = 'field_data_field_ding_news_materials';
-$handler->display->display_options['fields']['field_ding_news_materials']['field'] = 'field_ding_news_materials';
-$handler->display->display_options['fields']['field_ding_news_materials']['label'] = '';
-$handler->display->display_options['fields']['field_ding_news_materials']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['field_ding_news_materials']['settings'] = array(
-  'view_mode' => 'teaser',
-);
-$handler->display->display_options['fields']['field_ding_news_materials']['delta_offset'] = '0';
-$handler->display->display_options['fields']['field_ding_news_materials']['multi_type'] = 'ol';
 $handler->display->display_options['path'] = 'redia/feed/nyheder';
 $handler->display->display_options['sitename_title'] = 0;
 
@@ -212,6 +219,8 @@ $handler = $view->new_display('feed', 'Redia Feed Events', 'redia_bapps_feed_eve
 $handler->display->display_options['defaults']['title'] = FALSE;
 $handler->display->display_options['title'] = 'Kommende arrangementer i '. variable_get('site_name', '');
 $handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['pager']['options']['items_per_page'] = '10';
+$handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['style_plugin'] = 'rss';
 $handler->display->display_options['row_plugin'] = 'rss_fields';
 $handler->display->display_options['row_options']['title_field'] = 'title';
@@ -228,10 +237,6 @@ $handler->display->display_options['defaults']['relationships'] = FALSE;
 $handler->display->display_options['relationships']['uid']['id'] = 'uid';
 $handler->display->display_options['relationships']['uid']['table'] = 'node';
 $handler->display->display_options['relationships']['uid']['field'] = 'uid';
-/* Relationship: OG membership: Group Indholdselement from OG membership */
-$handler->display->display_options['relationships']['og_membership_related_node_group']['id'] = 'og_membership_related_node_group';
-$handler->display->display_options['relationships']['og_membership_related_node_group']['table'] = 'og_membership';
-$handler->display->display_options['relationships']['og_membership_related_node_group']['field'] = 'og_membership_related_node_group';
 $handler->display->display_options['defaults']['fields'] = FALSE;
 /* Felt: Indhold: Nid */
 $handler->display->display_options['fields']['nid']['id'] = 'nid';
@@ -275,6 +280,18 @@ $handler->display->display_options['fields']['field_ding_event_lead']['id'] = 'f
 $handler->display->display_options['fields']['field_ding_event_lead']['table'] = 'field_data_field_ding_event_lead';
 $handler->display->display_options['fields']['field_ding_event_lead']['field'] = 'field_ding_event_lead';
 $handler->display->display_options['fields']['field_ding_event_lead']['ui_name'] = 'Event lead';
+/* Felt: Indhold: Materials */
+$handler->display->display_options['fields']['field_ding_event_materials']['id'] = 'field_ding_event_materials';
+$handler->display->display_options['fields']['field_ding_event_materials']['table'] = 'field_data_field_ding_event_materials';
+$handler->display->display_options['fields']['field_ding_event_materials']['field'] = 'field_ding_event_materials';
+$handler->display->display_options['fields']['field_ding_event_materials']['label'] = '';
+$handler->display->display_options['fields']['field_ding_event_materials']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_ding_event_materials']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_ding_event_materials']['settings'] = array(
+  'view_mode' => 'teaser',
+);
+$handler->display->display_options['fields']['field_ding_event_materials']['delta_offset'] = '0';
+$handler->display->display_options['fields']['field_ding_event_materials']['multi_type'] = 'ol';
 /* Felt: Event Tekst (Lead + Body) */
 $handler->display->display_options['fields']['field_ding_event_body']['id'] = 'field_ding_event_body';
 $handler->display->display_options['fields']['field_ding_event_body']['table'] = 'field_data_field_ding_event_body';
@@ -283,7 +300,9 @@ $handler->display->display_options['fields']['field_ding_event_body']['ui_name']
 $handler->display->display_options['fields']['field_ding_event_body']['label'] = 'event brødtekst ';
 $handler->display->display_options['fields']['field_ding_event_body']['alter']['alter_text'] = TRUE;
 $handler->display->display_options['fields']['field_ding_event_body']['alter']['text'] = '[field_ding_event_lead]<br/>
-[field_ding_event_body]';
+[field_ding_event_body]<br/>
+[field_ding_event_materials]';
+$handler->display->display_options['fields']['field_ding_event_body']['hide_alter_empty'] = FALSE;
 /* Felt: Event from date */
 $handler->display->display_options['fields']['field_ding_event_date']['id'] = 'field_ding_event_date';
 $handler->display->display_options['fields']['field_ding_event_date']['table'] = 'field_data_field_ding_event_date';
@@ -330,10 +349,6 @@ $handler->display->display_options['fields']['field_ding_event_list_image']['set
   'image_style' => 'oc_event_main_image',
   'image_link' => '',
 );
-/* Felt: Indhold: Place2book Tickets */
-$handler->display->display_options['fields']['field_place2book_tickets']['id'] = 'field_place2book_tickets';
-$handler->display->display_options['fields']['field_place2book_tickets']['table'] = 'field_data_field_place2book_tickets';
-$handler->display->display_options['fields']['field_place2book_tickets']['field'] = 'field_place2book_tickets';
 $handler->display->display_options['defaults']['sorts'] = FALSE;
 /* Sort criterion: Indhold: Date -  start date (field_ding_event_date) */
 $handler->display->display_options['sorts']['field_ding_event_date_value']['id'] = 'field_ding_event_date_value';
@@ -364,17 +379,6 @@ $handler->display->display_options['filters']['date_filter']['default_date'] = '
 $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
   'field_data_field_ding_event_date.field_ding_event_date_value' => 'field_data_field_ding_event_date.field_ding_event_date_value',
 );
-/* Felt: Indhold: Materials */
-$handler->display->display_options['fields']['field_ding_event_materials']['id'] = 'field_ding_event_materials';
-$handler->display->display_options['fields']['field_ding_event_materials']['table'] = 'field_data_field_ding_event_materials';
-$handler->display->display_options['fields']['field_ding_event_materials']['field'] = 'field_ding_event_materials';
-$handler->display->display_options['fields']['field_ding_event_materials']['label'] = '';
-$handler->display->display_options['fields']['field_ding_event_materials']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['field_ding_event_materials']['settings'] = array(
-  'view_mode' => 'teaser',
-);
-$handler->display->display_options['fields']['field_ding_event_materials']['delta_offset'] = '0';
-$handler->display->display_options['fields']['field_ding_event_materials']['multi_type'] = 'ol';
 $handler->display->display_options['path'] = 'redia/feed/arrangementer';
 $handler->display->display_options['sitename_title'] = 0;
 $translatables['redia_bapp'] = array(
@@ -403,18 +407,21 @@ $translatables['redia_bapp'] = array(
   t('[field_ding_news_lead]<br/>
 [field_ding_news_body]'),
   t('Redia Feed News'),
-  t('Nyheder fra '). variable_get('site_name', ''),
+  t('Nyheder fra Odense Centralbibliotek'),
+  t('[field_ding_news_lead]<br/>
+[field_ding_news_body]<br/>
+[field_ding_news_materials]'),
   t('List image'),
   t('Redia Feed Events'),
   t('Kommende arrangementer i ') . variable_get('site_name', ''),
   t('Group node from OG membership'),
   t('event brødtekst '),
   t('[field_ding_event_lead]<br/>
-[field_ding_event_body]'),
+[field_ding_event_body]<br/>
+[field_ding_event_materials]'),
   t('event dato start'),
   t('Address'),
   t('Lokation'),
-  t('Place2book Tickets'),
 );
   $export['redia_bapp'] = $view;
 
