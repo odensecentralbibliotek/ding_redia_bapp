@@ -190,7 +190,7 @@ $handler->display->display_options['fields']['field_ding_news_materials']['setti
   'view_mode' => 'teaser',
 );
 $handler->display->display_options['fields']['field_ding_news_materials']['delta_offset'] = '0';
-$handler->display->display_options['fields']['field_ding_news_materials']['multi_type'] = 'ol';
+$handler->display->display_options['fields']['field_ding_news_materials']['multi_type'] = 'ul';
 /* Felt: Tekst (Lead + Body) */
 $handler->display->display_options['fields']['field_ding_news_body']['id'] = 'field_ding_news_body';
 $handler->display->display_options['fields']['field_ding_news_body']['table'] = 'field_data_field_ding_news_body';
@@ -291,7 +291,7 @@ $handler->display->display_options['fields']['field_ding_event_materials']['sett
   'view_mode' => 'teaser',
 );
 $handler->display->display_options['fields']['field_ding_event_materials']['delta_offset'] = '0';
-$handler->display->display_options['fields']['field_ding_event_materials']['multi_type'] = 'ol';
+$handler->display->display_options['fields']['field_ding_event_materials']['multi_type'] = 'ul';
 /* Felt: Event Tekst (Lead + Body) */
 $handler->display->display_options['fields']['field_ding_event_body']['id'] = 'field_ding_event_body';
 $handler->display->display_options['fields']['field_ding_event_body']['table'] = 'field_data_field_ding_event_body';
