@@ -19,7 +19,7 @@
     <link><?php print $link; ?></link>
     <description><?php print $description; 
     if (isset($place2book)) {
-    print '&lt;br /&gt;' . htmlspecialchars($place2book, ENT_QUOTES);
+    print '&lt;br /&gt; &lt;h2&gt;' . htmlspecialchars($place2book, ENT_QUOTES) . '&lt;h2/&gt;';
     }
     ?></description>
     <?php print $item_elements; ?>
