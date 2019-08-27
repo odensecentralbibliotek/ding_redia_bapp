@@ -45,5 +45,8 @@
     if (isset($event_end)) {
       print '<redia-rss:arrangement-endtime>' . $event_end . '</redia-rss:arrangement-endtime>';
     }
+    if (isset($price)) {
+      print '<redia-rss:price>' . $price . '</redia-rss:price>';
+    }
     ?>
   </item>

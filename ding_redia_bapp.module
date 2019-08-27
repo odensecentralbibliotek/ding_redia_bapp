@@ -73,8 +73,10 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
   $vars['event_end'] = $event_end;
 
   // Set display_start
+  $price = $vars['price'] = isset($vars['view']->result[$rowid-1]->field_field_ding_event_price[0]['raw']['value']) ? $vars['view']->result[$rowid-1]->field_field_ding_event_price[0]['raw']['value'] : null;
+  
+  //set price
   $vars['display_start'] = $created;
-
   // Set display_end
   switch ($nodetype) {
     case "ding_news":
