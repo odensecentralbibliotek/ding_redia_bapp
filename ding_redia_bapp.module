@@ -68,13 +68,14 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
    
     $event_start = strtotime($time_value . ' GMT');
     
+    $time_value2 = $vars['view']->result[$rowid-1]->field_field_ding_event_date[0]['raw']['value2'];
+    $event_end = strtotime($time_value2 . ' GMT');
     //Often there is no end time..and it should be null.
-    if(isset($vars['view']->result[$rowid-1]->field_field_ding_event_date[0]['raw']['value2'])
+    /*if(isset($vars['view']->result[$rowid-1]->field_field_ding_event_date[0]['raw']['value2'])
       && $vars['view']->result[$rowid-1]->field_field_ding_event_date[0]['raw']['value2'] != $vars['view']->result[$rowid-1]->field_field_ding_event_date[0]['raw']['value'])
     {
-        $time_value2 = $vars['view']->result[$rowid-1]->field_field_ding_event_date[0]['raw']['value2'];
-        $event_end = strtotime($time_value2 . ' GMT');
-    }
+        
+    }*/
   }
   $vars['event_start'] = $event_start;
   $vars['event_end'] = $event_end;
