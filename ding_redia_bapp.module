@@ -77,6 +77,7 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
         
     }*/
   }
+  $vars['subheadline'] = $vars['view']->result[$rowid-1]->field_field_ding_event_lead[0]['raw']['value'];
   $vars['event_start'] = $event_start;
   $vars['event_end'] = $event_end;
 

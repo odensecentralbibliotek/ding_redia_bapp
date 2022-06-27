@@ -11,6 +11,7 @@
   <channel>
     <title><?php print $title; ?></title>
     <link><?php print $link; ?></link>
+    <content-rss:subheadline><?php print $subheadline; ?></content-rss:subheadline>
     <description><?php print $description; ?></description>
     <language><?php print $langcode; ?></language>
     <?php print $channel_elements; ?>
