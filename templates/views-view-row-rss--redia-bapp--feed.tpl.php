@@ -17,7 +17,7 @@
   <item>
     <title><?php print $title; ?></title>
     <link><?php print $link; ?></link>
-    <content-rss:subheadline><?php print $subheadline; ?></content-rss:subheadline>
+    <redia-rss:subheadline><?php print $subheadline; ?></redia-rss:subheadline>
     <description><?php print $description; 
     if (isset($place2book)) {
     print '&lt;br /&gt; &lt;h2&gt;' . htmlspecialchars($place2book, ENT_QUOTES) . '&lt;h2/&gt;';
