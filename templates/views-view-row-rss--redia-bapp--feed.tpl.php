@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Template to display an item in an Redia BAPPS RSS feed.
@@ -14,40 +15,40 @@
  *
  */
 ?>
-  <item>
-    <title><?php print $title; ?></title>
-    <link><?php print $link; ?></link>
-    <redia-rss:subheadline><?php print $subheadline; ?></redia-rss:subheadline>
-    <description><?php print $description; 
-    if (isset($place2book)) {
-    print '&lt;br /&gt; &lt;h2&gt;' . htmlspecialchars($place2book, ENT_QUOTES) . '&lt;h2/&gt;';
-    }
-    ?></description>
-    <?php print $item_elements; ?>
-    <?php
-    if (isset($display_start)) {
-      print '<redia-rss:display-starttime>' . $display_start . '</redia-rss:display-starttime>';
-    }
-    if (isset($display_end)) {
-      print '<redia-rss:display-endtime>' . $display_end . '</redia-rss:display-endtime>';
-    }
-    if (isset($cat_id)) {
-      print '<redia-rss:category-id>' . $cat_id . '</redia-rss:category-id>';
-    }
-    if (!empty($image_path)) {
-      print '<redia-rss:media><redia-rss:item><redia-rss:url>' . $image_path . '</redia-rss:url></redia-rss:item></redia-rss:media>';
-    }
-    if (!empty($event_loc)) {
-      print '<redia-rss:arrangement-location>' . $event_loc . '</redia-rss:arrangement-location>';
-    }
-    if (isset($event_start)) {
-      print '<redia-rss:arrangement-starttime>' . $event_start . '</redia-rss:arrangement-starttime>';
-    }
-    if (isset($event_end)) {
-      print '<redia-rss:arrangement-endtime>' . $event_end . '</redia-rss:arrangement-endtime>';
-    }
-    if (isset($price)) {
-      print '<redia-rss:arrangement-price>' . $price . '</redia-rss:arrangement-price>';
-    }
-    ?>
-  </item>
+<item>
+  <title><?php print $title; ?></title>
+  <link><?php print $link; ?></link>
+  <redia-rss:subheadline><?php print htmlspecialchars($subheadline); ?></redia-rss:subheadline>
+  <description><?php print $description;
+                if (isset($place2book)) {
+                  print '&lt;br /&gt; &lt;h2&gt;' . htmlspecialchars($place2book, ENT_QUOTES) . '&lt;h2/&gt;';
+                }
+                ?></description>
+  <?php print $item_elements; ?>
+  <?php
+  if (isset($display_start)) {
+    print '<redia-rss:display-starttime>' . $display_start . '</redia-rss:display-starttime>';
+  }
+  if (isset($display_end)) {
+    print '<redia-rss:display-endtime>' . $display_end . '</redia-rss:display-endtime>';
+  }
+  if (isset($cat_id)) {
+    print '<redia-rss:category-id>' . $cat_id . '</redia-rss:category-id>';
+  }
+  if (!empty($image_path)) {
+    print '<redia-rss:media><redia-rss:item><redia-rss:url>' . $image_path . '</redia-rss:url></redia-rss:item></redia-rss:media>';
+  }
+  if (!empty($event_loc)) {
+    print '<redia-rss:arrangement-location>' . $event_loc . '</redia-rss:arrangement-location>';
+  }
+  if (isset($event_start)) {
+    print '<redia-rss:arrangement-starttime>' . $event_start . '</redia-rss:arrangement-starttime>';
+  }
+  if (isset($event_end)) {
+    print '<redia-rss:arrangement-endtime>' . $event_end . '</redia-rss:arrangement-endtime>';
+  }
+  if (isset($price)) {
+    print '<redia-rss:arrangement-price>' . $price . '</redia-rss:arrangement-price>';
+  }
+  ?>
+</item>
