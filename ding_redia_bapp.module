@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Code for the ding_redia_bapp feature.
@@ -9,32 +10,34 @@ include_once 'ding_redia_bapp.features.inc';
 /**
  * Implements hook_preprocess_views_view
  */
-function ding_redia_bapp_preprocess_views_view(&$vars) {
+function ding_redia_bapp_preprocess_views_view(&$vars)
+{
   $function_name = 'ding_redia_bapp_preprocess_views_view_row_rss__' . $vars['view']->name;
   if (function_exists($function_name)) {
     $function_name($vars);
   }
 }
 
-function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars) {
+function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
+{
   $rowid = $vars['id'];
-  $nodetype = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->type;
-  $created = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->created;
-  $p2k = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->field_place2book_tickets[LANGUAGE_NONE][0]['value'];
-  if (!empty($p2k)){
-  $eventnode = node_load($vars['view']->result[$rowid-1]->_field_data['nid']['entity']->nid);
-  $place2book = render_place2book_ticketsinfo($eventnode);
-  $vars['place2book'] = $place2book;
+  $nodetype = $vars['view']->result[$rowid - 1]->_field_data['nid']['entity']->type;
+  $created = $vars['view']->result[$rowid - 1]->_field_data['nid']['entity']->created;
+  $p2k = $vars['view']->result[$rowid - 1]->_field_data['nid']['entity']->field_place2book_tickets[LANGUAGE_NONE][0]['value'];
+  if (!empty($p2k)) {
+    $eventnode = node_load($vars['view']->result[$rowid - 1]->_field_data['nid']['entity']->nid);
+    $place2book = render_place2book_ticketsinfo($eventnode);
+    $vars['place2book'] = $place2book;
   }
   // Set event_loc
   $event_loc = '';
-  
-  if(isset($vars['view']->result[$rowid-1]->_field_data['nid']['entity']->field_ding_event_library[LANGUAGE_NONE])){
-  $gid = $vars['view']->result[$rowid-1]->_field_data['nid']['entity']->field_ding_event_library[LANGUAGE_NONE][0]['gid'];
-  $library_id = db_query('SELECT etid FROM {og} WHERE gid = :gid', array(':gid' => $gid))->fetchField();
-  
+
+  if (isset($vars['view']->result[$rowid - 1]->_field_data['nid']['entity']->field_ding_event_library[LANGUAGE_NONE])) {
+    $gid = $vars['view']->result[$rowid - 1]->_field_data['nid']['entity']->field_ding_event_library[LANGUAGE_NONE][0]['gid'];
+    $library_id = db_query('SELECT etid FROM {og} WHERE gid = :gid', array(':gid' => $gid))->fetchField();
+
     if (!empty($library_id)) {
-    $libloc_result = db_query('SELECT   n.title,
+      $libloc_result = db_query('SELECT   n.title,
                   a.field_ding_library_addresse_thoroughfare AS street,
                   a.field_ding_library_addresse_premise AS additional,
                                 a.field_ding_library_addresse_postal_code AS postal_code,
@@ -44,31 +47,29 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
                         ON n.nid = a.entity_id
                         WHERE n.nid = :nid', array(':nid' => $library_id));
 
-    foreach ($libloc_result as $libloc) {
-      $loc = $libloc;
-      $event_loc = $libloc->street . ', ' . $libloc->postal_code . ', ' . $libloc->city;
-      $libloc->title = str_replace(" & ", " &amp;amp; ", $libloc->title);
-      $vars['description'] = $libloc->title . '&lt;br /&gt;' . $vars['description'];
+      foreach ($libloc_result as $libloc) {
+        $loc = $libloc;
+        $event_loc = $libloc->street . ', ' . $libloc->postal_code . ', ' . $libloc->city;
+        $libloc->title = str_replace(" & ", " &amp; ", $libloc->title);
+        $vars['description'] = $libloc->title . '&lt;br /&gt;' . $vars['description'];
+      }
     }
-  }
- }
- 
- elseif (!empty($vars['view']->result[$rowid-1]->field_field_ding_event_location[0]['raw']['thoroughfare'])) {
-    $loc = $vars['view']->result[$rowid-1]->field_field_ding_event_location[0]['raw'];
+  } elseif (!empty($vars['view']->result[$rowid - 1]->field_field_ding_event_location[0]['raw']['thoroughfare'])) {
+    $loc = $vars['view']->result[$rowid - 1]->field_field_ding_event_location[0]['raw'];
     $event_loc = $loc['thoroughfare'] . ', ' . $loc['postal_code'] . ' ' . $loc['locality'];
   }
-  
+
   $vars['event_loc'] = $event_loc;
 
   // Set event_start + event_end
   $event_start = null;
   $event_end = null;
-  if (isset($vars['view']->result[$rowid-1]->field_field_ding_event_date)) {
-    $time_value = $vars['view']->result[$rowid-1]->field_field_ding_event_date[0]['raw']['value'];
-   
+  if (isset($vars['view']->result[$rowid - 1]->field_field_ding_event_date)) {
+    $time_value = $vars['view']->result[$rowid - 1]->field_field_ding_event_date[0]['raw']['value'];
+
     $event_start = strtotime($time_value . ' GMT');
-    
-    $time_value2 = $vars['view']->result[$rowid-1]->field_field_ding_event_date[0]['raw']['value2'];
+
+    $time_value2 = $vars['view']->result[$rowid - 1]->field_field_ding_event_date[0]['raw']['value2'];
     $event_end = strtotime($time_value2 . ' GMT');
     //Often there is no end time..and it should be null.
     /*if(isset($vars['view']->result[$rowid-1]->field_field_ding_event_date[0]['raw']['value2'])
@@ -77,20 +78,20 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
         
     }*/
   }
-  $vars['subheadline'] = $vars['view']->result[$rowid-1]->field_field_ding_event_lead[0]['raw']['value'];
+  $vars['subheadline'] = $vars['view']->result[$rowid - 1]->field_field_ding_event_lead[0]['raw']['value'];
   $vars['event_start'] = $event_start;
   $vars['event_end'] = $event_end;
 
   // Set display_start
-  $price = $vars['price'] = isset($vars['view']->result[$rowid-1]->field_field_ding_event_price[0]['raw']['value']) ? $vars['view']->result[$rowid-1]->field_field_ding_event_price[0]['raw']['value'] : null;
-  
+  $price = $vars['price'] = isset($vars['view']->result[$rowid - 1]->field_field_ding_event_price[0]['raw']['value']) ? $vars['view']->result[$rowid - 1]->field_field_ding_event_price[0]['raw']['value'] : null;
+
   //set price
   $vars['display_start'] = $created;
   // Set display_end
   switch ($nodetype) {
     case "ding_news":
       // display end time is created date + 14 days
-      $display_end = ((int) $created) + 3600 + (14*24*60*60);
+      $display_end = ((int) $created) + 3600 + (14 * 24 * 60 * 60);
       break;
     case "ding_event":
       $display_end = $event_start;
@@ -105,15 +106,15 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
   $image_uri = '';
   switch ($nodetype) {
     case "ding_news":
-      if (!empty($vars['view']->result[$rowid-1]->field_field_ding_news_list_image)) {
-        $image_uri = $vars['view']->result[$rowid-1]->field_field_ding_news_list_image[0]['rendered']['#item']['uri'];
-        $image_style = $vars['view']->result[$rowid-1]->field_field_ding_news_list_image[0]['rendered']['#image_style'];
+      if (!empty($vars['view']->result[$rowid - 1]->field_field_ding_news_list_image)) {
+        $image_uri = $vars['view']->result[$rowid - 1]->field_field_ding_news_list_image[0]['rendered']['#item']['uri'];
+        $image_style = $vars['view']->result[$rowid - 1]->field_field_ding_news_list_image[0]['rendered']['#image_style'];
       }
       break;
     case "ding_event":
-      if (!empty($vars['view']->result[$rowid-1]->field_field_ding_event_list_image)) {
-        $image_uri = $vars['view']->result[$rowid-1]->field_field_ding_event_list_image[0]['rendered']['#item']['uri'];
-        $image_style = $vars['view']->result[$rowid-1]->field_field_ding_event_list_image[0]['rendered']['#image_style'];
+      if (!empty($vars['view']->result[$rowid - 1]->field_field_ding_event_list_image)) {
+        $image_uri = $vars['view']->result[$rowid - 1]->field_field_ding_event_list_image[0]['rendered']['#item']['uri'];
+        $image_style = $vars['view']->result[$rowid - 1]->field_field_ding_event_list_image[0]['rendered']['#image_style'];
       }
       break;
     default:
@@ -122,8 +123,7 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
   // apply image style and get full image path
   if (!empty($image_style)) {
     $image_path = image_style_url($image_style, $image_uri);
-  }
-  else {
+  } else {
     $image_path = '';
   }
   $vars['image_path'] = $image_path;
@@ -135,7 +135,8 @@ function ding_redia_bapp_preprocess_views_view_row_rss__redia_bapp__feed(&$vars)
  * See http://views-help.doc.logrus.com/help/views/api-default-views
  * for help with providing default .tpl files for your views
  */
-function ding_redia_bapp_theme($existing, $path) {
+function ding_redia_bapp_theme($existing, $path)
+{
   $path = drupal_get_path('module', 'ding_redia_bapp') . '/templates';
   return array(
     'views_view_rss__redia_bapp__feed' => array(
