@@ -16,7 +16,7 @@
  */
 ?>
 <item>
-  <title><?php print $title; ?></title>
+  <title><?php print htmlspecialchars($title, ENT_QUOTES); ?></title>
   <link><?php print $link; ?></link>
   <redia-rss:subheadline><?php print htmlspecialchars($subheadline); ?></redia-rss:subheadline>
   <description><?php print $description;
